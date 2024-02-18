@@ -171,7 +171,11 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        // Roles and Permission Management
         Spatie\Permission\PermissionServiceProvider::class,
+
+        // Module Providers
+        Modules\HumanResource\Providers\HumanResourceServiceProvider::class
     ])->toArray(),
 
     /*
