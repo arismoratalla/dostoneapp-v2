@@ -5,6 +5,10 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use Modules\HumanResource\Database\Seeders\AnnualLeaveAllocationsSeeder;
+use Modules\HumanResource\Database\Seeders\LeavesSeeder;
+use Modules\HumanResource\Database\Seeders\LeaveTypesSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,12 +18,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // RolesSeeder::class,
-            UserSeeder::class,
+            // UserSeeder::class,
 
-            // LeaveTypesSeeder::class,
-            // LeavesSeeder::class,
-            // AnnualLeaveAllocationsSeeder::class
-
+            LeaveTypesSeeder::class,
+            LeavesSeeder::class,
+            AnnualLeaveAllocationsSeeder::class,
             // DivisionsSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
