@@ -57,17 +57,29 @@ const checkActiveMenu = (menu) => {
             </button>
             <ul id="dropdown-attendance" class="py-2 space-y-2">
                   <li>
-                     <MenuLink :href="route('hr.index')" :active="$page.component === 'HumanResource/Pages/Index'" @click="setActiveMenu('dropdown-attendance-dashboard')">
+                     <MenuLink 
+                        :href="route('hr.index')" 
+                        :active="$page.component === 'HumanResource/Pages/Index'" 
+                        @click="setActiveMenu('dropdown-attendance-dashboard')"
+                        >
                         Dashboard
                      </MenuLink>
                   </li>
                   <li>
-                     <MenuLink v-if="$page.props.isOfficer || $page.props.isAdmin" :href="route('hr.index')" :active="$page.component === 'HumanResource/Pages/Index'" @click="setActiveMenu('dropdown-attendance-dashboard')">
+                     <MenuLink 
+                        v-if="$page.props.user.roles.includes('admin')" 
+                        :href="route('employee.index')" 
+                        :active="$page.component === 'HumanResource/Pages/Employee/Index'" @click="setActiveMenu('dropdown-attendance-dashboard')"
+                        >
                         Employees
                      </MenuLink>
                   </li>
                   <li>
-                     <MenuLink :href="route('leave.index')" :active="$page.component === 'HumanResource/Pages/Leave/Index'" @click="setActiveMenu('dropdown-attendance')">
+                     <MenuLink 
+                        :href="route('leave.index')" 
+                        :active="$page.component === 'HumanResource/Pages/Leave/Index'" 
+                        @click="setActiveMenu('dropdown-attendance')"
+                        >
                         Leave Management
                      </MenuLink>
                   </li>

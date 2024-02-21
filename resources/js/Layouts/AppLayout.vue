@@ -12,6 +12,8 @@ defineProps({
     title: String,
 });
 
+const selectedModule = ref('Modules')
+
 const showingNavigationDropdown = ref(false);
 
 const switchToTeam = (team) => {
@@ -36,7 +38,7 @@ const logout = () => {
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
@@ -46,15 +48,24 @@ const logout = () => {
                                 </Link>
                             </div>
 
+                            <div class="hidden sm:mt-2.5 sm:-my-px sm:ms-10 sm:flex sm:flex-col">
+                                <h3 class="font-semibold text-md sm:text-xs md:text-xl">
+                                    Department of Science and Technology Regional Office IX
+                                </h3>
+                                <p class="text-xs sm:text-xs md:text-md">
+                                    Pettit Barracks, Zamboanga City
+                                </p>
+                            </div>
+
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <!-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                            </div>
+                            </div> -->
                         </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <div v-if="$page.props.auth.user" class="hidden sm:flex sm:items-center sm:ms-6">
                             <div class="ms-3 relative">
                                 <!-- Teams Dropdown -->
                                 <Dropdown v-if="$page.props.jetstream.hasTeamFeatures" align="right" width="60">
@@ -108,6 +119,45 @@ const logout = () => {
                                                     </form>
                                                 </template>
                                             </template>
+                                        </div>
+                                    </template>
+                                </Dropdown>
+                            </div>
+
+                            <div class="ms-3 relative">
+                                <!-- Modules Dropdown -->
+                                <Dropdown align="right" width="60">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md">
+                                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                                {{ selectedModule }}
+
+                                                <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <div class="w-40">
+                                            <!-- Team Management -->
+                                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                                Modules
+                                            </div>
+
+                                            <!-- Team Settings -->
+                                            <DropdownLink :href="route('dashboard')" @click="selectedModule ='Modules'" >
+                                                Home
+                                            </DropdownLink>
+
+                                            <DropdownLink :href="route('hr.index')" @click="selectedModule ='Human Resources'">
+                                                Human Resources
+                                            </DropdownLink>
+
+                                            <DropdownLink :href="route('hr.index')" @click="selectedModule ='Finance'">
+                                                Finance
+                                            </DropdownLink>
                                         </div>
                                     </template>
                                 </Dropdown>
@@ -197,7 +247,7 @@ const logout = () => {
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
+                    <div v-if="$page.props.auth.user" class="pt-4 pb-1 border-t border-gray-200">
                         <div class="flex items-center px-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 me-3">
                                 <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.auth.user.profile_photo_url" :alt="$page.props.auth.user.name">
@@ -275,7 +325,7 @@ const logout = () => {
 
             <!-- Page Heading -->
             <header v-if="$slots.header" class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-full mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
             </header>

@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 // import AppLayout from '@/Layouts/AppLayout.vue';
 import Sidebar from './Sidebar.vue'
+import Header from './Header.vue';
 import { initFlowbite } from 'flowbite';
 
 onMounted(() => {
@@ -11,16 +12,12 @@ onMounted(() => {
   
 <template>
   <!-- <AppLayout title="HR Dashboard"> -->
-    <!-- <header>
-      <h2 class="-mx-40 font-semibold text-xl text-gray-800 leading-tight">
-        Human Resource
-      </h2>
-    </header> -->
+    <Header title="Human Resources" />
 
     <div class="flex">
       
       <Sidebar />
-
+      
       <div class="flex-1 max-w-full">
         <div class="mt-4 mx-auto sm:px-2 lg:px-4">
           <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">

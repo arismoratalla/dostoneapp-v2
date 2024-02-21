@@ -17,16 +17,13 @@ class RolesSeeder extends Seeder
      */
     public function run(): void
     {
-        // Set TeamId
-        // setPermissionsTeamId(1);
-
         $role_admin = Role::create(['name' => 'admin']);
-        // $role_employee = Role::create(['name' => 'employee']);
-        // $role_officer = Role::create(['name' => 'officer']);
-        // $role_chief = Role::create(['name' => 'chief']);
-        // $role_oic_chief = Role::create(['name' => 'oic-chief']);
-        // $role_director = Role::create(['name' => 'director']);
-        // $role_oic_director = Role::create(['name' => 'oic-director']);
+        $role_employee = Role::create(['name' => 'employee']);
+        $role_officer = Role::create(['name' => 'officer']);
+        $role_chief = Role::create(['name' => 'chief']);
+        $role_oic_chief = Role::create(['name' => 'oic-chief']);
+        $role_director = Role::create(['name' => 'director']);
+        $role_oic_director = Role::create(['name' => 'oic-director']);
 
         // Leave Permissions
         $leave_create = Permission::create(['name' => 'create-leave']);
@@ -40,31 +37,33 @@ class RolesSeeder extends Seeder
         $leave_approve = Permission::create(['name' => 'approve-leave']);
         $leave_disapprove = Permission::create(['name' => 'disapprove-leave']);
 
-        $role_admin->givePermissionTo(Permission::all());
-        // $permissions_admin = [
-        //     $leave_create, $leave_read, $leave_update, $leave_delete, $leave_submit,
-        // ];
-        // $role_admin->syncPermissions($permissions_admin);
+        // $role_admin->givePermissionTo(Permission::all());
+        $permissions_admin = [
+            $leave_create, $leave_read, $leave_update, $leave_delete, $leave_submit, $leave_validate, $leave_recommend, $leave_approve, $leave_disapprove
+        ];
+        $role_admin->syncPermissions($permissions_admin);
 
-        // $permissions_employee = [
-        //     $leave_create, $leave_read, $leave_update, $leave_delete, $leave_submit,
-        // ];
-        // $role_admin->syncPermissions($permissions_employee);
+        $permissions_employee = [
+            $leave_create, $leave_read, $leave_update, $leave_delete, $leave_submit,
+        ];
+        $role_employee->syncPermissions($permissions_employee);
 
-        // $permissions_officer = [
-        //     $leave_read, $leave_update, $leave_validate,
-        // ];
-        // $role_admin->syncPermissions($permissions_officer);
+        $permissions_officer = [
+            $leave_read, $leave_update, $leave_validate,
+        ];
+        $role_officer->syncPermissions($permissions_officer);
 
-        // $permissions_chief = [
-        //     $leave_read, $leave_update, $leave_recommend, $leave_disapprove,
-        // ];
-        // $role_admin->syncPermissions($permissions_chief);
+        $permissions_chief = [
+            $leave_read, $leave_update, $leave_recommend, $leave_disapprove,
+        ];
+        $role_chief->syncPermissions($permissions_chief);
+        $role_oic_chief->syncPermissions($permissions_chief);
 
-        // $permissions_director = [
-        //     $leave_read, $leave_update, $leave_approve, $leave_disapprove,
-        // ];
-        // $role_admin->syncPermissions($permissions_director);
+        $permissions_director = [
+            $leave_read, $leave_update, $leave_approve, $leave_disapprove,
+        ];
+        $role_director->syncPermissions($permissions_director);
+        $role_oic_director->syncPermissions($permissions_director);
 
         // Get Role object, then assign it 
         // $role = Role::findByName('admin','web');

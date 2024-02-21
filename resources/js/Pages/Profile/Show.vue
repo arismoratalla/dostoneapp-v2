@@ -13,6 +13,12 @@ defineProps({
 });
 </script>
 
+<script>
+export default {
+    layout: null,
+}
+</script>
+
 <template>
     <AppLayout title="Profile">
         <template #header>

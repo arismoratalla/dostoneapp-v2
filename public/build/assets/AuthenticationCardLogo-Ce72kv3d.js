@@ -1,1 +1,0 @@
-import{o as e,c as t,w as a,u as o,j as s,a as r}from"./app-DN5wh2Eq.js";const c=r("img",{src:"DOST.png",width:"100px",alt:"DOST-IX"},null,-1),u={__name:"AuthenticationCardLogo",setup(n){return(_,i)=>(e(),t(o(s),{href:"/"},{default:a(()=>[c]),_:1}))}};export{u as _};

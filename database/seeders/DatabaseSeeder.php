@@ -18,11 +18,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // RolesSeeder::class,
-            // UserSeeder::class,
+            UserSeeder::class,
+            // UsersTableSeederOld::class,
 
-            LeaveTypesSeeder::class,
-            LeavesSeeder::class,
-            AnnualLeaveAllocationsSeeder::class,
+            // LeaveTypesSeeder::class,
+            // LeavesSeeder::class,
+            // AnnualLeaveAllocationsSeeder::class,
             // DivisionsSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();

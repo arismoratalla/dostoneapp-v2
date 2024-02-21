@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 // import AppLayout from '@/Layouts/AppLayout.vue';
-import Create from './Create.vue';
+// import Create from './Create.vue';
 import Modal from '@/Components/Modal.vue';
 import Sidebar from '../Sidebar.vue'
 import Header from '../Header.vue';
@@ -15,7 +15,7 @@ import { router, Link } from '@inertiajs/vue3'
 import { initFlowbite } from 'flowbite';
 
 const props = defineProps({
-  leaves: {
+  employees: {
     type: Object,
     default: () => ({ data: [] })
   },
@@ -47,14 +47,14 @@ const closeCreateLeaveModal = () => {
 watch(
   form.value,
   debounce(() => {
-    router.get('/hr/leave', pickBy(form.value), { preserveState: true })
+    router.get('/hr/employee', pickBy(form.value), { preserveState: true })
   }, 500),
   { deep: true }
 );
 
 function reset() {
   form.value = mapValues(form.value, () => null);
-  router.get('/hr/leave');
+  router.get('/hr/employee');
 }
 
 onMounted(() => {
@@ -87,7 +87,7 @@ const handleFormSubmitted = () => {
             <div class="justify-center">
               <div class="p-2 lg:p-4 bg-white border-b border-gray-200">
                 <h1 class="text-2xl font-medium text-gray-900">
-                  Manage Leave
+                  Manage Employees
                 </h1>
               </div>
 
@@ -107,18 +107,18 @@ const handleFormSubmitted = () => {
                       <path d="M12 15L12 9" stroke="#222222" stroke-width="1.2" stroke-linecap="square"/>
                       <path d="M15 12L9 12" stroke="#222222" stroke-width="1.2" stroke-linecap="square"/>
                       </svg>
-                      <span class="ml-2">New Leave</span>  
+                      <span class="ml-2">New Employee</span>  
                     </PrimaryButton>
 
                     <!-- Modal for Create Leave -->
                     <Modal :show="showModal" @close="closeCreateLeaveModal">
-                        <Create 
+                        <!-- <Create 
                             @formSubmitted="handleFormSubmitted"
                             :leaveTypes="leaveTypes"
-                        />
+                        /> -->
                     </Modal>
 
-                    <!-- Modal for View Leave -->
+                    <!-- Modal for View Employee -->
                     <!-- <Modal :show="showViewModal" @close="closeViewRequestModal">
                       <View :id="idForView"/>
                     </Modal> -->
@@ -127,34 +127,37 @@ const handleFormSubmitted = () => {
                   <table class="max-w-full table-auto ml-6 mr-6 mb-2 border-collapse">
                         <thead class="bg-gray-300 text-black text-center font-bold">
                             <tr class="text-center font-bold">
-                              <th class="pb-2 pt-2 px-20 uppercase">Type</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">Start</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">End</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">Duration</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">Number of Days</th>
+                              <th class="pb-2 pt-2 px-20 uppercase">Name</th>
+                              <th class="pb-2 pt-2 px-10 uppercase">Employee Number</th>
+                              <th class="pb-2 pt-2 px-10 uppercase">Position</th>
+                              <th class="pb-2 pt-2 px-10 uppercase">Designation</th>
+                              <th class="pb-2 pt-2 px-10 uppercase">unit</th>
+                              <th class="pb-2 pt-2 px-10 uppercase">Mobile</th>
                               <th class="pb-2 pt-2 px-10 uppercase">Status</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="leave in leaves.data" :key="leave.id" class="hover:bg-gray-100 focus-within:bg-gray-100 border-t-2">
+                            <tr v-for="employee in employees.data" :key="employee.id" class="hover:bg-gray-100 focus-within:bg-gray-100 border-t-2">
                                 <td class="w-5/10 text-left pl-2 border-solid border-top-1 border-sky-500">
-                                    {{ leave.leaveType }}
+                                    {{ employee.name }}
                                 </td>
                                 <td class="w-1/10 text-center text-balance">
-                                    {{ leave.start_date  }}
+                                    {{ employee.employee_number  }}
                                 </td>
                                 <td class="w-1/10 text-center text-balance">
-                                    {{ leave.end_date  }}
+                                    {{ employee.position_id  }}
                                 </td>
                                 <td class="w-1/10 text-center text-balance">
-                                    {{ leave.leave_duration }}
+                                    {{ employee.division_id }}
                                 </td>
                                 <td class="w-1/10 text-center text-balance">
-                                    {{ 5 }}
+                                    {{ employee.unit_id }}
                                 </td>
                                 <td class="w-1/10 text-center text-balance">
-                                    {{ leave.status }}
+                                    {{ employee.mobile }}
+                                </td>
+                                <td class="w-1/10 text-center text-balance">
+                                    {{ employee.status }}
                                 </td>
                                 <td class="border-t text-center">
                                   <div class="inline-flex" >
@@ -170,12 +173,12 @@ const handleFormSubmitted = () => {
                                   </div>
                                 </td>
                             </tr>
-                            <tr v-if="leaves.data.length === 0">
-                            <td class="px-6 py-4 border-t" colspan="4">No leaves found.</td>
+                            <tr v-if="employees.data.length === 0">
+                            <td class="px-6 py-4 border-t" colspan="4">No employees found.</td>
                             </tr>
                         </tbody>
                     </table>
-                    <pagination class="mt-3 p-2 lg:p-4" :links="leaves.links" />
+                    <pagination class="mt-3 p-2 lg:p-4" :links="employees.links" />
                 <!-- </div> -->
             </div>
             
