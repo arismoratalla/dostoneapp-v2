@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use Modules\HumanResource\Models\Leave;
+use Modules\HumanResource\Models\LeaveBalance;
 use Modules\HumanResource\Models\LeaveType;
 
 use Inertia\Inertia;
@@ -16,7 +17,8 @@ class LeaveController extends Controller
     {
         return Inertia::render('HumanResource/Pages/Leave/Index', [
             'leaves' => Leave::orderByDesc('id')
-                ->filter($request->only('search', 'trashesd'))
+                // ->with('leaveType')
+                ->filter($request->only('search', 'trashed'))
                 ->when($request->filled('reason'), function ($query) {
                     $query->where('reason', request('reason'));
                 })
@@ -34,6 +36,7 @@ class LeaveController extends Controller
                         'status' => $model->status,
                     ];
                 }),
+            'leaveBalances' => LeaveBalance::where(['user_id' => \Auth::user()->id])->with('leaveType')->get(),
             'leaveTypes' => LeaveType::all(['id', 'name']),
         ]);
     }

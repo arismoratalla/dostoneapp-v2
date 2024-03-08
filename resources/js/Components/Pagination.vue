@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
   links: Array,
+  only: Array,
 })
 
 // Get the count of links
@@ -21,6 +22,7 @@ const props = defineProps({
           v-html="link.label"
         />
         <Link
+          :only="only"
           v-else
           class="mb-1 mr-1 px-4 py-3 focus:text-indigo-600 text-sm leading-4 hover:bg-white border focus:border-indigo-600 rounded"
           :class="{ 'bg-white': link.active }"

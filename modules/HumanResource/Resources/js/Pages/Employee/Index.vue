@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 // import AppLayout from '@/Layouts/AppLayout.vue';
-// import Create from './Create.vue';
+import Create from './Create.vue';
 import Modal from '@/Components/Modal.vue';
 import Sidebar from '../Sidebar.vue'
 import Header from '../Header.vue';
@@ -68,12 +68,6 @@ const handleFormSubmitted = () => {
 </script>
   
 <template>
-  <!-- <AppLayout title="HR Dashboard"> -->
-    <!-- <template #header>
-      <h2 class="-mx-40 font-semibold text-xl text-gray-800 leading-tight">
-        Human Resource
-      </h2>
-    </template> -->
     <Header title="Human Resources" />
 
     <div class="flex">
@@ -92,7 +86,6 @@ const handleFormSubmitted = () => {
               </div>
 
               <div class="bg-gray-200 bg-opacity-25 lg:gap-8 p-2 lg:p-4">
-                <!-- <div> -->
                   <div class="flex items-center justify-between ml-6 mr-6 mb-3 mt-3">
                     <search-filter v-model="form.search" class="mr-2 w-full max-w-md" @reset="reset">
                       <label class="block text-gray-800">Trashed:</label>
@@ -101,7 +94,6 @@ const handleFormSubmitted = () => {
                     </search-filter>
 
                     <PrimaryButton @click="openCreateLeaveModal">
-                    <!-- <PrimaryButton> -->
                       <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="12" cy="12" r="9" fill="#FFFFFF" fill-opacity="0.9"/>
                       <path d="M12 15L12 9" stroke="#222222" stroke-width="1.2" stroke-linecap="square"/>
@@ -112,10 +104,10 @@ const handleFormSubmitted = () => {
 
                     <!-- Modal for Create Leave -->
                     <Modal :show="showModal" @close="closeCreateLeaveModal">
-                        <!-- <Create 
+                        <Create 
                             @formSubmitted="handleFormSubmitted"
                             :leaveTypes="leaveTypes"
-                        /> -->
+                        />
                     </Modal>
 
                     <!-- Modal for View Employee -->
@@ -129,32 +121,21 @@ const handleFormSubmitted = () => {
                             <tr class="text-center font-bold">
                               <th class="pb-2 pt-2 px-20 uppercase">Name</th>
                               <th class="pb-2 pt-2 px-10 uppercase">Employee Number</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">Position</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">Designation</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">unit</th>
-                              <th class="pb-2 pt-2 px-10 uppercase">Mobile</th>
+                              <th class="pb-2 pt-2 px-10 uppercase">Email</th>
                               <th class="pb-2 pt-2 px-10 uppercase">Status</th>
+                              <th class="pb-2 pt-2 px-10 uppercase">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="employee in employees.data" :key="employee.id" class="hover:bg-gray-100 focus-within:bg-gray-100 border-t-2">
-                                <td class="w-5/10 text-left pl-2 border-solid border-top-1 border-sky-500">
+                                <td class="w-5/10 text-left pl-2 border-solid border-top-1 border-sky-500 uppercase">
                                     {{ employee.name }}
                                 </td>
-                                <td class="w-1/10 text-center text-balance">
+                                <td class="w-1/10 text-center uppercase text-balance">
                                     {{ employee.employee_number  }}
                                 </td>
-                                <td class="w-1/10 text-center text-balance">
-                                    {{ employee.position_id  }}
-                                </td>
-                                <td class="w-1/10 text-center text-balance">
-                                    {{ employee.division_id }}
-                                </td>
-                                <td class="w-1/10 text-center text-balance">
-                                    {{ employee.unit_id }}
-                                </td>
-                                <td class="w-1/10 text-center text-balance">
-                                    {{ employee.mobile }}
+                                <td class="w-1/10 text-left text-balance">
+                                    {{ employee.email  }}
                                 </td>
                                 <td class="w-1/10 text-center text-balance">
                                     {{ employee.status }}
@@ -178,8 +159,7 @@ const handleFormSubmitted = () => {
                             </tr>
                         </tbody>
                     </table>
-                    <pagination class="mt-3 p-2 lg:p-4" :links="employees.links" />
-                <!-- </div> -->
+                    <pagination :only="['employees']" class="mt-3 p-2 lg:p-4" :links="employees.links" />
             </div>
             
           </div>
@@ -188,6 +168,5 @@ const handleFormSubmitted = () => {
         </div>
       </div>
     </div>
-  <!-- </AppLayout> -->
 </template>
   

@@ -12,6 +12,8 @@ Route::middleware([
 
         Route::prefix('employee')->group(function () {
             Route::get('/', [Modules\HumanResource\Http\Controllers\EmployeeController::class, 'index'])->name('employee.index');
+            Route::get('/{employee}/edit', [Modules\HumanResource\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
+            // Route::get('/edit', [Modules\HumanResource\Http\Controllers\EmployeeController::class, 'edit'])->name('employee.edit');
             Route::post('/store', [Modules\HumanResource\Http\Controllers\EmployeeController::class, 'store'])->name('employee.store');
         });
 

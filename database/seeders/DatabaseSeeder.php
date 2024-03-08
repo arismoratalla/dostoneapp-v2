@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use Modules\HumanResource\Database\Seeders\AnnualLeaveAllocationsSeeder;
+use Modules\HumanResource\Database\Seeders\LeaveBalanceSeeder;
 use Modules\HumanResource\Database\Seeders\LeavesSeeder;
 use Modules\HumanResource\Database\Seeders\LeaveTypesSeeder;
 
@@ -18,13 +19,16 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // RolesSeeder::class,
-            UserSeeder::class,
+            // UserSeeder::class,
             // UsersTableSeederOld::class,
 
             // LeaveTypesSeeder::class,
             // LeavesSeeder::class,
             // AnnualLeaveAllocationsSeeder::class,
+            // LeaveBalanceSeeder::class,
             // DivisionsSeeder::class,
+            // PositionsSeeder::class,
+            // UnitsSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

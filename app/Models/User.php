@@ -11,6 +11,12 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Modules\HumanResource\Models\Employee;
+use Modules\HumanResource\Models\leaveBalances;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -29,6 +35,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'active'
     ];
 
     /**
@@ -60,4 +67,40 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function employee(): HasOne
+    {
+        return $this->hasOne(Employee::class);
+    }
+
+    public function leaveBalances(): HasMany
+    {
+        return $this->hasMany(LeaveBalance::class);
+    }
+
+    public function scopeFilter($query, array $filters)
+    {   
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+        // $query->when(data_get($filters, 'search'), function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+
+                    // ->orWhereHas('leaveType', function ($query) use ($search) {
+                    //     $query->where('name', 'like', '%' . $search . '%');
+                    // })
+                    // ->orWhere('start_date', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+            });
+        });
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->active ? 'Active' : 'Inactive';
+    }
+
+    // public function setNameAttribute()
+    // {
+    //     //
+    // }
 }
